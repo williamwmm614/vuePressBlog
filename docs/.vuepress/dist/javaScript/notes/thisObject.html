@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>改变 this 指向 | 恍若晨曦</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="/vuePressBlog/images/logo.ico">
+    <link rel="stylesheet" href="/vuePressBlog/css/main.css">
+    <link rel="stylesheet" href="/vuePressBlog/styles/index.styl">
+    <script charset="utf-8" src="/vuePressBlog/js/main.js"></script>
+    <meta name="description" content="努力多一点，遗憾少一点">
+    <link rel="preload" href="/vuePressBlog/assets/css/0.styles.3c2ff423.css" as="style"><link rel="preload" href="/vuePressBlog/assets/js/app.c6a6401c.js" as="script"><link rel="preload" href="/vuePressBlog/assets/js/2.3b7dd216.js" as="script"><link rel="preload" href="/vuePressBlog/assets/js/8.55dc54e5.js" as="script"><link rel="prefetch" href="/vuePressBlog/assets/js/3.f2d04d1a.js"><link rel="prefetch" href="/vuePressBlog/assets/js/4.eeddaf9b.js"><link rel="prefetch" href="/vuePressBlog/assets/js/5.6dd93f41.js"><link rel="prefetch" href="/vuePressBlog/assets/js/6.03ca0b9e.js"><link rel="prefetch" href="/vuePressBlog/assets/js/7.acdc7e7a.js"><link rel="prefetch" href="/vuePressBlog/assets/js/9.bda963c1.js">
+    <link rel="stylesheet" href="/vuePressBlog/assets/css/0.styles.3c2ff423.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/vuePressBlog/" class="home-link router-link-active"><!----> <span class="site-name">恍若晨曦</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/vuePressBlog/javaScript/" class="nav-link router-link-active">
+  JavaScript
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/vuePressBlog/javaScript/" class="nav-link router-link-active">
+  JavaScript
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>面向对象</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>call、apply、bind</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vuePressBlog/javaScript/notes/thisObject.html" aria-current="page" class="active sidebar-link">改变 this 指向</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="改变-this-指向"><a href="#改变-this-指向" class="header-anchor">#</a> 改变 <code>this</code> 指向</h1> <h3 id="_1、call"><a href="#_1、call" class="header-anchor">#</a> 1、call()</h3> <div class="custom-block warning"><p class="custom-block-title">WARNING</p> <p>call()在<em>不传参</em>情况：this默认指向window</p></div> <div class="language-js line-numbers-mode"><pre class="language-js"><code>参数一：必须传一个改变<span class="token keyword">this</span>指向的某一个对象，如果没有时，
+       必须使用<span class="token keyword">null</span>来作为参数，传递一个空对象
+参数二 <span class="token operator">/</span> 三：是函数所需要的参数
+<span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    json <span class="token operator">=</span> <span class="token punctuation">{</span>
+        a<span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+        b<span class="token operator">:</span> <span class="token number">4</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">//一、传递空对象写法，后面为函数所需参数</span>
+<span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token operator">+</span>b<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> 
+
+<span class="token comment">//二、传递改变this指向对象写法</span>
+<span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>a <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>b<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>json<span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><h3 id="_2、apply"><a href="#_2、apply" class="header-anchor">#</a> 2、apply()</h3> <div class="language-js line-numbers-mode"><pre class="language-js"><code>参数一<span class="token operator">:</span> 必须传一个改变<span class="token keyword">this</span>指向的某个对象<span class="token punctuation">,</span> 如果没有时<span class="token punctuation">,</span>
+        必须使用<span class="token keyword">null</span>来作为参数<span class="token punctuation">,</span> 传递一个空对象
+   
+参数二<span class="token operator">:</span> 必须为数组形式<span class="token punctuation">,</span> 数组里面包含函数所需要的参数
+    
+<span class="token comment">// 一、传递空对象写法，后面为函数所需参数(数组形式)</span>
+<span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token operator">+</span>b<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+fn<span class="token punctuation">.</span><span class="token function">allpy</span><span class="token punctuation">(</span>josn<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment">// 虽然指向json对象，但用不到里面的参数</span>
+fn<span class="token punctuation">.</span><span class="token function">allpy</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> 
+
+<span class="token comment">// 二、传递改变this指向对象写法</span>
+<span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>a <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>b<span class="token punctuation">)</span> <span class="token comment">// 用到json里面的参数，用不到</span>
+<span class="token punctuation">}</span>
+<span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>json<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><div class="custom-block warning"><p class="custom-block-title">call() 和 apply() 的区别</p> <p>传递参数的形式不一样</p></div> <h3 id="_3、bind"><a href="#_3、bind" class="header-anchor">#</a> 3、bind()</h3> <div class="custom-block warning"><p class="custom-block-title">特征</p> <p>bind()不会主动执行，一般在被动情况下执行</p></div> <div class="language-js html line-numbers-mode"><pre class="language-js"><code><span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">&quot;wrap&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    
+<span class="token keyword">let</span> json <span class="token operator">=</span> <span class="token punctuation">{</span>
+    a<span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    b<span class="token operator">:</span> <span class="token number">4</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+    
+wrap<span class="token punctuation">.</span>onclick <span class="token operator">=</span> <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>json<span class="token punctuation">)</span>    <span class="token comment">//在盒子点击事件触发后才会执行fn函数</span>
+wrap<span class="token punctuation">.</span>onclick <span class="token operator">=</span> <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>json<span class="token punctuation">)</span>    <span class="token comment">//页面一加载函数就会执行</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/vuePressBlog/javaScript/notes/object.html" class="prev">
+        面向对象
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/vuePressBlog/assets/js/app.c6a6401c.js" defer></script><script src="/vuePressBlog/assets/js/2.3b7dd216.js" defer></script><script src="/vuePressBlog/assets/js/8.55dc54e5.js" defer></script>
+  </body>
+</html>
