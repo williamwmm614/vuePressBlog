@@ -1,7 +1,7 @@
 {
   "name": "VuePressBlog",
   "version": "1.0.0",
-  "description": "'# Hello VuePress!'",
+  "description": "'恍若晨曦'",
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev docs",

@@ -4,6 +4,7 @@ module.exports = {
   base: '/vuePressBlog/',
   port: '3000',
   head: [
+    ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],
     ['link', {rel: 'icon', href: '/images/logo.ico'}],
     ['link', {rel: 'stylesheet', href: '/css/main.css'}],
     ['link', {rel: 'stylesheet', href: '/styles/index.styl'}],
