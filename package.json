@@ -19,6 +19,6 @@
     "stylus-loader": "^3.0.2"
   },
   "dependencies": {
-    "vuepress": "^1.5.2"
+    "vuepress": "^1.9.7"
   }
 }
